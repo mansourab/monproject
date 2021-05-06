@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'All items' %}
+
+{% block body %}
+
+	<h2>All Items</h2>
+
+	{% for item in items %}
+
+		<h3>
+			<a href="{{ path('item.show', {slug: item.slug}) }}">{{ item.title }}</a>
+		</h3>
+
+		<form action="{{ path('item.delete', {slug: item.slug}) }}" method="post" style="display: inline-block">
+			<input type="hidden" name="_method" value="DELETE">
+			<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
+			<button>Supprimer</button>
+		</form> |
+		<a href="{{ path('item.edit', {slug: item.slug}) }}">Editer</a>
+		<hr>
+	{% endfor %}
+
+{% endblock %}
